@@ -1,9 +1,9 @@
 cheps
 =================
 ##enviroment
-please use this on CentOS, Redhat, AmazonLinux.
+cheps use on CentOS, Redhat, AmazonLinux.
 ##descrition
-cheps command prevent you from forgetting `chkconfig <daemon> on` if you run the process
-so that you don't miss the process when os reboot.
-and sameway, prevent you from forgetting `chkconfig <daemon> off`.
-
+cheps prevent you from forgetting `chkconfig <daemon> on`.
+Have you ever happen to get a service failure when you reboot os?
+cheps list up daemons switch on or off.
+You don't miss the process when os reboot with cheps.

@@ -1,22 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
 # column name
 echo chkconfig run-level process | awk '{printf "%20s %9s  %s\n", $1, $2, $3}'
-
-grep_ps () {
-  pattern=$(ps ax | grep -v grep | grep $(echo $1 | sed "s|[-_].*||"))
-  echo $pattern
-}
 
 grep_chkfg() {
   runlevel=$1
   switch=$2
   chklist=$(/sbin/chkconfig --list | grep "[$runlevel]:$switch" | awk '{print $1}')
-  echo $chklist
+  echo "$chklist"
 }
 
 print_dm() {
-  echo -n $1 $2:$3 | awk '{printf "%20s %9s  ", $1, $2}'
+  echo -n "$1" "$2":"$3" | awk '{printf "%20s %9s  ", $1, $2}'
 
 }
 
@@ -24,8 +19,8 @@ print_dm() {
 # chkconfig on but the process doesn't exist!
 
 for daemon in $(grep_chkfg 3 on); do
-  if [[ -z $(grep_ps $daemon) ]]; then
-    print_dm $daemon 3 on
+  if [[ -z $(grep_ps "$daemon") ]]; then
+    print_dm "$daemon" 3 on
     echo none
   fi
 done
@@ -34,8 +29,8 @@ done
 # chkconfig off but the process exists!
 
 for daemon in $(grep_chkfg 3 off); do
-  if [[ ! -z $(grep_ps $daemon) ]]; then
-    print_dm $daemon 3 off
-    ps ax | grep $daemon -o | uniq
+  if [[ ! -z $(pgrep -f "${daemon//[-_].*/}") ]]; then
+    print_dm "$daemon" 3 off
+    pgrep -f "$daemon" -o | uniq
   fi
 done

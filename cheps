@@ -19,7 +19,7 @@ print_dm() {
 # chkconfig on but the process doesn't exist!
 
 for daemon in $(grep_chkfg 3 on); do
-  if [[ -z $(grep_ps "$daemon") ]]; then
+  if [[ -z $(pgrep -f "${daemon//[-_].*/}") ]]; then
     print_dm "$daemon" 3 on
     echo none
   fi

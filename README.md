@@ -1,8 +1,8 @@
 cheps  
 =====
-##Enviroment  
+## Enviroment  
 Use cheps on CentOS, Redhat, AmazonLinux.  
-##Description  
+## Description  
 cheps prevents you from forgetting `chkconfig <daemon> on`.  
 Have you ever happen to get a service failure when you rebooted os?  
 cheps makes a list of services, run level switches on or off.  
